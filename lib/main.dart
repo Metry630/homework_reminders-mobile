@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:homework_reminders/menu.dart';
+import 'package:homework_reminders/screens/menu.dart';
 
 // /Users/joshuajodrian/repos/flutter/bin
 void main() {
