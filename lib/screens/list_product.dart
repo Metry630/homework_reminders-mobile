@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:homework_reminders/screens/item_detail.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:homework_reminders/models/product.dart';
@@ -61,10 +62,31 @@ class _ProductPageState extends State<ProductPage> {
                 } else {
                   return ListView.builder(
                       itemCount: snapshot.data!.length,
-                      itemBuilder: (_, index) => Container(
+                      itemBuilder: (_, index) => GestureDetector(
+                          // When the child is tapped, show a snackbar.
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => DetailItem(
+                                        item: snapshot.data![index])));
+                          },
+                          // The custom button
+                          child: Container(
                             margin: const EdgeInsets.symmetric(
                                 horizontal: 16, vertical: 12),
                             padding: const EdgeInsets.all(20.0),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(10),
+                              boxShadow: const [
+                                BoxShadow(
+                                  color: Colors.black12,
+                                  blurRadius: 5,
+                                  offset: Offset(0, 5),
+                                ),
+                              ],
+                            ),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -77,13 +99,13 @@ class _ProductPageState extends State<ProductPage> {
                                   ),
                                 ),
                                 const SizedBox(height: 10),
-                                Text("${snapshot.data![index].fields.price}"),
+                                Text("${snapshot.data![index].fields.amount}"),
                                 const SizedBox(height: 10),
                                 Text(
                                     "${snapshot.data![index].fields.description}")
                               ],
                             ),
-                          ));
+                          )));
                 }
               }
             }));

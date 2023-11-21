@@ -26,7 +26,7 @@ class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
   @override
-  _LoginPageState createState() => _LoginPageState();
+  State<LoginPage> createState() => _LoginPageState();
 }
 
 class _LoginPageState extends State<LoginPage> {
@@ -39,23 +39,32 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Login'),
+        foregroundColor: Colors.white,
+        shadowColor: Colors.transparent,
+        backgroundColor: Colors.indigo,
       ),
       body: Container(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            TextField(
+            TextFormField(
               controller: _usernameController,
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 labelText: 'Username',
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(5.0),
+                ),
               ),
             ),
             const SizedBox(height: 12.0),
-            TextField(
+            TextFormField(
               controller: _passwordController,
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 labelText: 'Password',
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(5.0),
+                ),
               ),
               obscureText: true,
             ),
@@ -76,32 +85,36 @@ class _LoginPageState extends State<LoginPage> {
                 });
 
                 if (request.loggedIn) {
-                  String message = response['message'];
-                  String uname = response['username'];
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (context) => MyHomePage()),
-                  );
-                  ScaffoldMessenger.of(context)
-                    ..hideCurrentSnackBar()
-                    ..showSnackBar(SnackBar(
-                        content: Text("$message Selamat datang, $uname.")));
+                  if (context.mounted) {
+                    String message = response['message'];
+                    String uname = response['username'];
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => MyHomePage()),
+                    );
+                    ScaffoldMessenger.of(context)
+                      ..hideCurrentSnackBar()
+                      ..showSnackBar(SnackBar(
+                          content: Text("$message Selamat datang, $uname.")));
+                  }
                 } else {
-                  showDialog(
-                    context: context,
-                    builder: (context) => AlertDialog(
-                      title: const Text('Login Gagal'),
-                      content: Text(response['message']),
-                      actions: [
-                        TextButton(
-                          child: const Text('OK'),
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                        ),
-                      ],
-                    ),
-                  );
+                  if (context.mounted) {
+                    showDialog(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                        title: const Text('Login Gagal'),
+                        content: Text(response['message']),
+                        actions: [
+                          TextButton(
+                            child: const Text('OK'),
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                          ),
+                        ],
+                      ),
+                    );
+                  }
                 }
               },
               child: const Text('Login'),

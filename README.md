@@ -219,3 +219,93 @@ Penerapan clean architecture membantu memisahkan konsep dan memastikan fleksibil
    - Saya memindahkan isi widget `ShopItem` dari `menu.dart` ke `shop_card.dart`.
    - Saya membuat folder `screens` pada direktori lib.
    - Saya memindahkan file `menu.dart` dan `shoplist_form.dart` ke dalam folder `screens` dengan menggunakan fitur refactoring pada IDE atau text editor.
+
+
+<h1>Tugas 9</h1>
+<h2>
+Pengambilan Data JSON tanpa Membuat Model Terlebih Dahulu:
+</h2>
+
+Ya, bisa dilakukan. Pengambilan data JSON tanpa membuat model terlebih dahulu dapat dilakukan dengan menggunakan metode seperti 'dart:convert' di Flutter. Anda dapat mengonversi JSON secara langsung ke objek Dart tanpa perlu mendefinisikan model terlebih dahulu. Meskipun demikian, pembuatan model umumnya lebih disarankan untuk kejelasan dan keamanan, karena model dapat membantu dalam validasi dan struktur data dengan lebih baik.
+
+<h2>Fungsi CookieRequest dan Pentingnya Instance CookieRequest dalam Flutter:</h2>
+
+CookieRequest pada umumnya merujuk pada permintaan HTTP yang menyertakan cookie. Cookie digunakan untuk menyimpan informasi di sisi klien. Membuat instance CookieRequest yang dapat dibagikan ke semua komponen dalam aplikasi Flutter dapat memberikan manfaat dalam menyimpan dan mengelola informasi otorisasi atau status pengguna secara konsisten di seluruh aplikasi.
+
+<h2>Mekanisme Pengambilan Data dari JSON hingga Tampil di Flutter</h2>:
+
+Mekanisme umumnya melibatkan pengambilan data JSON dari sumber seperti API, dengan menggunakan metode seperti paket 'http' di Flutter. Data JSON kemudian didecode menjadi objek Dart menggunakan 'dart:convert'. Objek Dart ini kemudian dapat digunakan untuk mengisi widget di Flutter, seperti ListView atau GridView.
+
+<h2>Mekanisme Autentikasi dari Flutter ke Django:</h2>
+
+Autentikasi dapat melibatkan pengiriman data akun dari Flutter ke Django melalui permintaan HTTP. Django akan memeriksa kecocokan data akun dan memberikan token atau sesi otorisasi. Flutter dapat menyimpan token ini dan menggunakannya untuk permintaan selanjutnya. Tampilan menu pada Flutter dapat diatur berdasarkan status autentikasi.
+
+<h2>Widget yang Digunakan</h2>
+
+1. **Scaffold:** Struktur dasar untuk aplikasi desain material. Menyediakan AppBar, Drawer, dan Body untuk aplikasi.
+
+2. **AppBar:** Mewakili bar aplikasi di bagian atas layar.
+
+3. **LeftDrawer:** Widget kustom yang mewakili laci kiri, digunakan di kedua halaman `ProductPage` dan `DetailItem`.
+
+4. **Padding:** Menambahkan padding di sekitar child-nya.
+
+5. **Column:** Widget yang menampilkan children-nya dalam tata letak vertikal.
+
+6. **SizedBox:** Kotak dengan ukuran tertentu. Digunakan untuk menambahkan ruang antar widget.
+
+7. **Text:** Menampilkan sejumlah teks. Digunakan untuk menampilkan berbagai informasi teks.
+
+8. **ListView.builder:** Membangun daftar widget yang dapat di-scroll secara malas berdasarkan indeks. Digunakan di `ProductPage` untuk menampilkan daftar produk.
+
+9. **GestureDetector:** Widget yang mendeteksi gesture. Digunakan di `ProductPage` untuk membungkus setiap item dalam daftar, memungkinkannya dapat ditekan.
+
+10. **Container:** Model kotak yang dapat berisi widget lain. Digunakan untuk membungkus setiap item produk di `ProductPage`.
+
+11. **ElevatedButton:** Tombol raised desain material. Digunakan untuk tombol login di `LoginPage`.
+
+12. **TextFormField:** Input teks desain material. Digunakan untuk input username dan password di `LoginPage`.
+
+13. **AlertDialog:** Dialog pop-up dengan judul dan aksi opsional. Digunakan untuk menampilkan pesan kegagalan login.
+
+14. **SnackBar:** Pesan sementara yang ditampilkan di bagian bawah layar. Digunakan untuk menampilkan pesan selamat datang setelah login berhasil.
+
+15. **CircularProgressIndicator:** Pemutar loading sirkular. Digunakan di `ProductPage` saat mengambil data produk.
+
+16. **FutureBuilder:** Widget yang membangun dirinya berdasarkan snapshot terbaru dari interaksi dengan Future. Digunakan di `ProductPage` untuk menangani pengambilan data produk secara asinkron.
+
+17. **Navigator:** Widget yang mengelola serangkaian child widget dengan disiplin tumpukan. Digunakan untuk menavigasi ke halaman detail ketika suatu item produk ditekan.
+
+
+<h2>Cara Implementasi</h2>
+Runtutan langkah-langkah integrasi autentikasi Django-Flutter:
+
+**Pada Django:**
+
+1. Buat django-app bernama 'authentication' pada project Django yang sudah dibuat sebelumnya.
+2. Tambahkan 'authentication' ke INSTALLED_APPS pada main project settings.py aplikasi Django.
+3. Jalankan perintah `pip install django-cors-headers` untuk menginstal library yang dibutuhkan.
+4. Tambahkan 'corsheaders' ke INSTALLED_APPS pada main project settings.py aplikasi Django.
+5. Tambahkan 'corsheaders.middleware.CorsMiddleware' pada main project settings.py aplikasi Django.
+6. Tambahkan variabel-variabel pada main project settings.py aplikasi Django yang diperlukan untuk konfigurasi CORS.
+7. Buat metode view untuk login pada authentication/views.py.
+8. Buat file urls.py pada folder 'authentication' dan tambahkan URL routing terhadap fungsi yang sudah dibuat dengan endpoint 'login/'.
+9. Terakhir, tambahkan `path('auth/', include('authentication.urls'))` pada file 'shopping_list/urls.py'.
+
+**Pada Flutter:**
+
+10. Instal package yang telah disediakan oleh tim asisten dosen dengan menjalankan perintah `flutter pub add provider` dan `flutter pub add pbp_django_auth`.
+11. Modifikasi root widget pada main.dart dengan menambahkan objek Provider untuk menyediakan instance CookieRequest ke semua child widgets.
+12. Buat file baru pada folder 'screens' dengan nama 'login.dart' dan isi dengan kode yang telah diberikan.
+13. Ubah file 'main.dart' untuk menggunakan halaman login sebagai home.
+14. Buat model kustom dengan menggunakan Quicktype dan implementasikan di proyek Flutter.
+15. Tambahkan dependensi HTTP dengan menjalankan perintah `flutter pub add http`.
+16. Modifikasi AndroidManifest.xml untuk memperbolehkan akses internet.
+17. Buat file 'list_product.dart' untuk fetch data dari Django dan tampilkan ke dalam ListView.
+18. Tambahkan halaman 'list_product.dart' ke dalam drawer.
+19. Hubungkan halaman 'shoplist_form.dart' dengan CookieRequest dan implementasikan posting data ke Django.
+20. Implementasi fitur logout di Django dengan membuat metode view dan path baru di Django.
+21. Tambahkan fitur logout di Flutter dengan menambahkan kode di file 'shop_card.dart' dan 'left_drawer.dart'.
+22. Membuat halaman `item_detail` yang berisi detail tiap item
+23. Membuat routing dari tiap item ke halaman item detail yang bersangkutan
+24. Menambahkan tombol back pada halaman detail item
